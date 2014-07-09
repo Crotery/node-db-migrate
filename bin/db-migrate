@@ -149,6 +149,8 @@ function executeDown() {
 
 function onComplete(migrator, originalErr) {
   migrator.driver.close(function(err) {
+    if (originalErr)
+          process.once('exit', function() { process.exit(5) });
     assert.ifError(originalErr);
     assert.ifError(err);
     log.info('Done');
